@@ -1,0 +1,9 @@
+{
+	"name": "welpocDataFact",
+	"location": "japaneast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "4992de9d-72ec-42e4-bcf3-c65cacd17370",
+		"tenantId": "b4514b95-174b-469f-a65d-82f1b1178a06"
+	}
+}
