@@ -1,0 +1,722 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "データ ファクトリ名",
+			"defaultValue": "welpocDataFact"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "'AzureBlobStorage1' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "'AzureDataLakeStorage1' の 'accountKey' のセキュリティで保護された文字列"
+		},
+		"AzureFileStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "'AzureFileStorage1' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"AzurePostgreSql1_connectionString": {
+			"type": "secureString",
+			"metadata": "'AzurePostgreSql1' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"AzurePostgreSql2_connectionString": {
+			"type": "secureString",
+			"metadata": "'AzurePostgreSql2' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://welpocst.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFileStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFileStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureFileStorage1_connectionString')]",
+					"fileShare": "welcom"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzurePostgreSql1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzurePostgreSql",
+				"typeProperties": {
+					"connectionString": "[parameters('AzurePostgreSql1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzurePostgreSql2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzurePostgreSql",
+				"typeProperties": {
+					"connectionString": "[parameters('AzurePostgreSql2_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzurePostgreSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzurePostgreSql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [
+					{
+						"name": "kg1_cd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "ten_cd",
+						"type": "character varying",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "item_cd",
+						"type": "character varying",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "zaikosu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_zaikosu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_urisu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_furikaesu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_henpinsu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "today_nyukasu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "chokunosu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_eob_tanasu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_hht_tanasu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "zaiko_flg",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "kigen_ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "all_f_volume",
+						"type": "numeric",
+						"precision": 3,
+						"scale": 1
+					},
+					{
+						"name": "uri_su_day",
+						"type": "numeric",
+						"precision": 9,
+						"scale": 2
+					},
+					{
+						"name": "lead_time",
+						"type": "numeric",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "stock_max",
+						"type": "numeric",
+						"precision": 4,
+						"scale": 0
+					},
+					{
+						"name": "last_nohin_ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "last_nohinsu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_stok_flg",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "last_uri_ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "last_ido_ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "bestf_volume",
+						"type": "numeric",
+						"precision": 3,
+						"scale": 1
+					},
+					{
+						"name": "create_date",
+						"type": "timestamp without time zone",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "create_user",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "update_date",
+						"type": "timestamp without time zone",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "update_user",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "public",
+					"table": "zaiko_db_10"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzurePostgreSql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureFileStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureFileStorageLocation",
+						"fileName": "wel_BWEL2250.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "",
+					"quoteChar": ""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureFileStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "wel_BWEL2250.csv",
+						"container": "welpocstfs"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "",
+					"quoteChar": ""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_1nj')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzurePostgreSql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [
+					{
+						"name": "kg1_cd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "ten_cd",
+						"type": "character varying",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "item_cd",
+						"type": "character varying",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "zaikosu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_zaikosu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_urisu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_furikaesu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_henpinsu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "today_nyukasu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "chokunosu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_eob_tanasu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_hht_tanasu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "zaiko_flg",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "kigen_ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "all_f_volume",
+						"type": "numeric",
+						"precision": 3,
+						"scale": 1
+					},
+					{
+						"name": "uri_su_day",
+						"type": "numeric",
+						"precision": 9,
+						"scale": 2
+					},
+					{
+						"name": "lead_time",
+						"type": "numeric",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "stock_max",
+						"type": "numeric",
+						"precision": 4,
+						"scale": 0
+					},
+					{
+						"name": "last_nohin_ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "last_nohinsu",
+						"type": "numeric",
+						"precision": 8,
+						"scale": 1
+					},
+					{
+						"name": "last_stok_flg",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "last_uri_ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "last_ido_ymd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "bestf_volume",
+						"type": "numeric",
+						"precision": 3,
+						"scale": 1
+					},
+					{
+						"name": "create_date",
+						"type": "timestamp without time zone",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "create_user",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "update_date",
+						"type": "timestamp without time zone",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "update_user",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "public",
+					"table": "zaiko_db_10"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzurePostgreSql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_1nj')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "wel_BWEL2250.csv",
+						"container": "welpocstfs"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureFileStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzurePostgreSQLSink",
+								"writeBatchSize": 1000000,
+								"writeBatchTimeout": "00:30:00",
+								"writeMethod": "BulkInsert"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"ordinal": 1
+										},
+										"sink": {
+											"name": "ten_cd",
+											"physicalType": "character varying",
+											"scale": 0,
+											"precision": 0
+										}
+									},
+									{
+										"source": {
+											"ordinal": 2
+										},
+										"sink": {
+											"name": "item_cd",
+											"physicalType": "character varying",
+											"scale": 0,
+											"precision": 0
+										}
+									},
+									{
+										"source": {
+											"ordinal": 3
+										},
+										"sink": {
+											"name": "zaikosu",
+											"physicalType": "numeric",
+											"scale": 1,
+											"precision": 8
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzurePostgreSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('factoryId'), '/datasets/AzurePostgreSqlTable1')]"
+			]
+		}
+	]
+}
