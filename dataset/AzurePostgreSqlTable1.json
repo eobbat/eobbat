@@ -1,0 +1,191 @@
+{
+	"name": "AzurePostgreSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzurePostgreSql1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [
+			{
+				"name": "kg1_cd",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "ten_cd",
+				"type": "character varying",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "ymd",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "item_cd",
+				"type": "character varying",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "zaikosu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "last_zaikosu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "last_urisu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "last_furikaesu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "last_henpinsu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "today_nyukasu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "chokunosu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "last_eob_tanasu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "last_hht_tanasu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "zaiko_flg",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "kigen_ymd",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "all_f_volume",
+				"type": "numeric",
+				"precision": 3,
+				"scale": 1
+			},
+			{
+				"name": "uri_su_day",
+				"type": "numeric",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "lead_time",
+				"type": "numeric",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "stock_max",
+				"type": "numeric",
+				"precision": 4,
+				"scale": 0
+			},
+			{
+				"name": "last_nohin_ymd",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "last_nohinsu",
+				"type": "numeric",
+				"precision": 8,
+				"scale": 1
+			},
+			{
+				"name": "last_stok_flg",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "last_uri_ymd",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "last_ido_ymd",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "bestf_volume",
+				"type": "numeric",
+				"precision": 3,
+				"scale": 1
+			},
+			{
+				"name": "create_date",
+				"type": "timestamp without time zone",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "create_user",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "update_date",
+				"type": "timestamp without time zone",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "update_user",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "public",
+			"table": "zaiko_db_10"
+		}
+	}
+}
