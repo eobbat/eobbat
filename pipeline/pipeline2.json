@@ -67,14 +67,6 @@
 								"sink": {
 									"ordinal": 3
 								}
-							},
-							{
-								"source": {
-									"type": "String"
-								},
-								"sink": {
-									"ordinal": 4
-								}
 							}
 						],
 						"typeConversion": true,
@@ -98,6 +90,12 @@
 				]
 			}
 		],
+		"variables": {
+			"USER_NAME": {
+				"type": "String",
+				"defaultValue": "V0026"
+			}
+		},
 		"annotations": []
 	}
 }
