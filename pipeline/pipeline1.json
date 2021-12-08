@@ -39,6 +39,7 @@
 							{
 								"source": {
 									"type": "String",
+									"physicalType": "String",
 									"ordinal": 1
 								},
 								"sink": {
@@ -50,6 +51,7 @@
 							{
 								"source": {
 									"type": "String",
+									"physicalType": "String",
 									"ordinal": 2
 								},
 								"sink": {
@@ -61,6 +63,7 @@
 							{
 								"source": {
 									"type": "String",
+									"physicalType": "String",
 									"ordinal": 3
 								},
 								"sink": {
