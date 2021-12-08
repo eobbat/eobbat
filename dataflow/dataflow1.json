@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzurePostgreSqlTable2",
+						"referenceName": "AzurePostgreSqlTable3",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
