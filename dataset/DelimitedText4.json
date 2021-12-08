@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "welpocstfs",
+				"fileName": "temp.csv",
 				"container": "welpocstfs"
 			},
 			"columnDelimiter": ",",
