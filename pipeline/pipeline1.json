@@ -18,7 +18,7 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "AzureFileStorageReadSettings",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
@@ -30,7 +30,7 @@
 						"type": "AzurePostgreSQLSink",
 						"writeBatchSize": 1000000,
 						"writeBatchTimeout": "00:30:00",
-						"writeMethod": "BulkInsert"
+						"writeMethod": "CopyCommand"
 					},
 					"enableStaging": false,
 					"translator": {
@@ -38,35 +38,35 @@
 						"mappings": [
 							{
 								"source": {
+									"type": "String",
 									"ordinal": 1
 								},
 								"sink": {
 									"name": "ten_cd",
-									"physicalType": "character varying",
-									"scale": 0,
-									"precision": 0
+									"type": "String",
+									"physicalType": "character varying"
 								}
 							},
 							{
 								"source": {
+									"type": "String",
 									"ordinal": 2
 								},
 								"sink": {
 									"name": "item_cd",
-									"physicalType": "character varying",
-									"scale": 0,
-									"precision": 0
+									"type": "String",
+									"physicalType": "character varying"
 								}
 							},
 							{
 								"source": {
+									"type": "String",
 									"ordinal": 3
 								},
 								"sink": {
-									"name": "zaikosu",
-									"physicalType": "numeric",
-									"scale": 1,
-									"precision": 8
+									"name": "teisuu",
+									"type": "Decimal",
+									"physicalType": "numeric"
 								}
 							}
 						],
@@ -79,13 +79,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText1",
+						"referenceName": "DelimitedText2",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "AzurePostgreSqlTable1",
+						"referenceName": "AzurePostgreSqlTable2",
 						"type": "DatasetReference"
 					}
 				]
