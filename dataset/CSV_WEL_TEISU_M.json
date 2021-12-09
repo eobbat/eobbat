@@ -1,0 +1,32 @@
+{
+	"name": "CSV_WEL_TEISU_M",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LNKCSV_WEL_TEISU_M",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "wel_BWEL2250.csv",
+				"container": "welpocstfs"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": ""
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	}
+}
