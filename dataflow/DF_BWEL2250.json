@@ -25,9 +25,12 @@
 				},
 				{
 					"name": "chkItemcd"
+				},
+				{
+					"name": "chkTeisu"
 				}
 			],
-			"script": "source(output(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\ttei_su as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> csvdata\ncsvdata derive(create_user = upper('BWEL2250'),\n\t\tcreate_date = currentTimestamp()) ~> csvdata2\ncsvdata2 window(over(line_no = rowNumber())) ~> csvdata3\ncsvdata3 split(between(length(coalesce(ten_cd,'')),1,6),\n\tdisjoint: false) ~> chkTencd@(chkTencdOK, chkTencdNG)\nchkTencd@chkTencdOK split(between(length(coalesce(item_cd,'')),1,13),\n\tdisjoint: false) ~> chkItemcd@(chkItemcdOK, chkItemcdNG)"
+			"script": "source(output(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\ttei_su as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> csvdata\ncsvdata derive(create_user = upper('BWEL2250'),\n\t\tcreate_date = currentTimestamp()) ~> csvdata2\ncsvdata2 window(over(line_no = rowNumber())) ~> csvdata3\ncsvdata3 split(between(length(coalesce(ten_cd,'')),1,6),\n\tdisjoint: false) ~> chkTencd@(chkTencdOK, chkTencdNG)\nchkTencd@chkTencdOK split(between(length(coalesce(item_cd,'')),1,13),\n\tdisjoint: false) ~> chkItemcd@(chkItemcdOK, chkItemcdNG)\nchkItemcd@chkItemcdOK split(isDecimal(tei_su),\n\tdisjoint: false) ~> chkTeisu@(chkTeisuOK, chkTeisuNG)"
 		}
 	}
 }
