@@ -13,8 +13,15 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
-			"script": "source(output(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\ttei_su as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> csvdata"
+			"transformations": [
+				{
+					"name": "csvdata2"
+				},
+				{
+					"name": "csvdata3"
+				}
+			],
+			"script": "source(output(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\ttei_su as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> csvdata\ncsvdata derive(create_user = upper('BWEL2250'),\n\t\tcreate_date = currentTimestamp()) ~> csvdata2\ncsvdata2 window(over(line_no = rowNumber())) ~> csvdata3"
 		}
 	}
 }
