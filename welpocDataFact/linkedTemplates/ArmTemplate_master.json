@@ -7,18 +7,6 @@
 			"metadata": "データ ファクトリ名",
 			"defaultValue": "welpocDataFact"
 		},
-		"AzureBlobStorage1_connectionString": {
-			"type": "secureString",
-			"metadata": "'AzureBlobStorage1' の 'connectionString' のセキュリティで保護された文字列"
-		},
-		"AzureFileStorage1_connectionString": {
-			"type": "secureString",
-			"metadata": "'AzureFileStorage1' の 'connectionString' のセキュリティで保護された文字列"
-		},
-		"AzurePostgreSql1_connectionString": {
-			"type": "secureString",
-			"metadata": "'AzurePostgreSql1' の 'connectionString' のセキュリティで保護された文字列"
-		},
 		"LNKCSV_WEL_TEISU_M_connectionString": {
 			"type": "secureString",
 			"metadata": "'LNKCSV_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
@@ -57,15 +45,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"AzureBlobStorage1_connectionString": {
-						"value": "[parameters('AzureBlobStorage1_connectionString')]"
-					},
-					"AzureFileStorage1_connectionString": {
-						"value": "[parameters('AzureFileStorage1_connectionString')]"
-					},
-					"AzurePostgreSql1_connectionString": {
-						"value": "[parameters('AzurePostgreSql1_connectionString')]"
 					},
 					"LNKCSV_WEL_TEISU_M_connectionString": {
 						"value": "[parameters('LNKCSV_WEL_TEISU_M_connectionString')]"
