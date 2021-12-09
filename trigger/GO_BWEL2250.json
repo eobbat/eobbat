@@ -1,0 +1,24 @@
+{
+	"name": "GO_BWEL2250",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "BWEL2250",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/bwel2250/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.Storage/storageAccounts/welpocst",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
