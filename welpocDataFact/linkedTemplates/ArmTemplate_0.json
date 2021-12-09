@@ -11,10 +11,6 @@
 			"type": "secureString",
 			"metadata": "'AzureBlobStorage1' の 'connectionString' のセキュリティで保護された文字列"
 		},
-		"AzureDataLakeStorage1_accountKey": {
-			"type": "secureString",
-			"metadata": "'AzureDataLakeStorage1' の 'accountKey' のセキュリティで保護された文字列"
-		},
 		"AzureFileStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "'AzureFileStorage1' の 'connectionString' のセキュリティで保護された文字列"
@@ -23,13 +19,17 @@
 			"type": "secureString",
 			"metadata": "'AzurePostgreSql1' の 'connectionString' のセキュリティで保護された文字列"
 		},
-		"AzurePostgreSql2_connectionString": {
+		"LNKCSV_WEL_TEISU_M_connectionString": {
 			"type": "secureString",
-			"metadata": "'AzurePostgreSql2' の 'connectionString' のセキュリティで保護された文字列"
+			"metadata": "'LNKCSV_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
 		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://welpocst.dfs.core.windows.net"
+		"LNKDB_TENPO_EXEC_SERVER_M_connectionString": {
+			"type": "secureString",
+			"metadata": "'LNKDB_TENPO_EXEC_SERVER_M' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"LNKDB_WEL_TEISU_M_connectionString": {
+			"type": "secureString",
+			"metadata": "'LNKDB_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
 		}
 	},
 	"variables": {
@@ -45,23 +45,6 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
-					}
 				}
 			},
 			"dependsOn": []
@@ -94,257 +77,58 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzurePostgreSql2')]",
+			"name": "[concat(parameters('factoryName'), '/LNKCSV_WEL_TEISU_M')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LNKCSV_WEL_TEISU_M_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LNKDB_TENPO_EXEC_SERVER_M')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
 				"type": "AzurePostgreSql",
 				"typeProperties": {
-					"connectionString": "[parameters('AzurePostgreSql2_connectionString')]"
+					"connectionString": "[parameters('LNKDB_TENPO_EXEC_SERVER_M_connectionString')]"
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzurePostgreSqlTable1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/LNKDB_WEL_TEISU_M')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzurePostgreSql1",
-					"type": "LinkedServiceReference"
-				},
 				"annotations": [],
-				"type": "AzurePostgreSqlTable",
-				"schema": [
-					{
-						"name": "kg1_cd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "ten_cd",
-						"type": "character varying",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "item_cd",
-						"type": "character varying",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "zaikosu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_zaikosu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_urisu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_furikaesu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_henpinsu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "today_nyukasu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "chokunosu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_eob_tanasu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_hht_tanasu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "zaiko_flg",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "kigen_ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "all_f_volume",
-						"type": "numeric",
-						"precision": 3,
-						"scale": 1
-					},
-					{
-						"name": "uri_su_day",
-						"type": "numeric",
-						"precision": 9,
-						"scale": 2
-					},
-					{
-						"name": "lead_time",
-						"type": "numeric",
-						"precision": 2,
-						"scale": 0
-					},
-					{
-						"name": "stock_max",
-						"type": "numeric",
-						"precision": 4,
-						"scale": 0
-					},
-					{
-						"name": "last_nohin_ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "last_nohinsu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_stok_flg",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "last_uri_ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "last_ido_ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "bestf_volume",
-						"type": "numeric",
-						"precision": 3,
-						"scale": 1
-					},
-					{
-						"name": "create_date",
-						"type": "timestamp without time zone",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "create_user",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "update_date",
-						"type": "timestamp without time zone",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "update_user",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					}
-				],
+				"type": "AzurePostgreSql",
 				"typeProperties": {
-					"schema": "public",
-					"table": "zaiko_db_10"
+					"connectionString": "[parameters('LNKDB_WEL_TEISU_M_connectionString')]"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzurePostgreSql1')]"
-			]
+			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CSV_WEL_TEISU_M')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureFileStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureFileStorageLocation",
-						"fileName": "wel_BWEL2250.csv"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "",
-					"quoteChar": ""
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureFileStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
+					"referenceName": "LNKCSV_WEL_TEISU_M",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -356,243 +140,8 @@
 						"container": "welpocstfs"
 					},
 					"columnDelimiter": ",",
-					"escapeChar": "",
-					"quoteChar": ""
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_1nj')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzurePostgreSql1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzurePostgreSqlTable",
-				"schema": [
-					{
-						"name": "kg1_cd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "ten_cd",
-						"type": "character varying",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "item_cd",
-						"type": "character varying",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "zaikosu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_zaikosu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_urisu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_furikaesu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_henpinsu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "today_nyukasu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "chokunosu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_eob_tanasu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_hht_tanasu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "zaiko_flg",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "kigen_ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "all_f_volume",
-						"type": "numeric",
-						"precision": 3,
-						"scale": 1
-					},
-					{
-						"name": "uri_su_day",
-						"type": "numeric",
-						"precision": 9,
-						"scale": 2
-					},
-					{
-						"name": "lead_time",
-						"type": "numeric",
-						"precision": 2,
-						"scale": 0
-					},
-					{
-						"name": "stock_max",
-						"type": "numeric",
-						"precision": 4,
-						"scale": 0
-					},
-					{
-						"name": "last_nohin_ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "last_nohinsu",
-						"type": "numeric",
-						"precision": 8,
-						"scale": 1
-					},
-					{
-						"name": "last_stok_flg",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "last_uri_ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "last_ido_ymd",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "bestf_volume",
-						"type": "numeric",
-						"precision": 3,
-						"scale": 1
-					},
-					{
-						"name": "create_date",
-						"type": "timestamp without time zone",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "create_user",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "update_date",
-						"type": "timestamp without time zone",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "update_user",
-						"type": "character",
-						"precision": 0,
-						"scale": 0
-					}
-				],
-				"typeProperties": {
-					"schema": "public",
-					"table": "zaiko_db_10"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzurePostgreSql1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_1nj')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "wel_BWEL2250.csv",
-						"container": "welpocstfs"
-					},
-					"columnDelimiter": ",",
-					"rowDelimiter": "\n",
 					"escapeChar": "\\",
-					"firstRowAsHeader": false,
-					"quoteChar": "\""
+					"quoteChar": ""
 				},
 				"schema": [
 					{
@@ -607,21 +156,254 @@
 				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+				"[concat(variables('factoryId'), '/linkedServices/LNKCSV_WEL_TEISU_M')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"name": "[concat(parameters('factoryName'), '/DB_TENPO_EXEC_SERVER_M')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LNKDB_TENPO_EXEC_SERVER_M",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [
+					{
+						"name": "kg1_cd",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "ten_cd",
+						"type": "character varying",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "server_id_bat",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "server_id_web",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "exec_mode",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "exec_date",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "create_date",
+						"type": "timestamp without time zone",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "create_user",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "update_date",
+						"type": "timestamp without time zone",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "update_user",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "public",
+					"table": "tenpo_exec_server_m"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LNKDB_TENPO_EXEC_SERVER_M')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DB_WEL_TEISU_M')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LNKDB_WEL_TEISU_M",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzurePostgreSqlTable",
+				"schema": [
+					{
+						"name": "ten_cd",
+						"type": "character varying",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "item_cd",
+						"type": "character varying",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "teisuu",
+						"type": "numeric",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "create_date",
+						"type": "timestamp without time zone",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "create_user",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "update_date",
+						"type": "timestamp without time zone",
+						"precision": 0,
+						"scale": 0
+					},
+					{
+						"name": "update_user",
+						"type": "character",
+						"precision": 0,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "public",
+					"table": "wel_teisu_m"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LNKDB_WEL_TEISU_M')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "Japan East",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false
+						}
+					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_BWEL2250')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "CSV_WEL_TEISU_M",
+								"type": "DatasetReference"
+							},
+							"name": "csvdata"
+						},
+						{
+							"dataset": {
+								"referenceName": "DB_TENPO_EXEC_SERVER_M",
+								"type": "DatasetReference"
+							},
+							"name": "dbTenpo"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DB_WEL_TEISU_M",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "csvdata2"
+						},
+						{
+							"name": "chkTencd"
+						},
+						{
+							"name": "chkItemcd"
+						},
+						{
+							"name": "chkTeisu"
+						},
+						{
+							"name": "chkExistsTencd"
+						},
+						{
+							"name": "csvdata3"
+						}
+					],
+					"script": "source(output(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\ttei_su as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> csvdata\nsource(output(\n\t\tkg1_cd as string,\n\t\tten_cd as string,\n\t\tserver_id_bat as string,\n\t\tserver_id_web as string,\n\t\texec_mode as string,\n\t\texec_date as string,\n\t\tcreate_date as timestamp,\n\t\tcreate_user as string,\n\t\tupdate_date as timestamp,\n\t\tupdate_user as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> dbTenpo\ncsvdata derive(create_user = upper('BWEL2250'),\n\t\tcreate_date = currentTimestamp()) ~> csvdata2\ncsvdata3 split(between(length(coalesce(ten_cd,'')),1,6),\n\tdisjoint: false) ~> chkTencd@(chkTencdOK, chkTencdNG)\nchkTencd@chkTencdOK split(between(length(coalesce(item_cd,'')),1,13),\n\tdisjoint: false) ~> chkItemcd@(chkItemcdOK, chkItemcdNG)\nchkItemcd@chkItemcdOK split(isDecimal(tei_su),\n\tdisjoint: false) ~> chkTeisu@(chkTeisuOK, chkTeisuNG)\nchkTeisu@chkTeisuOK, dbTenpo exists(chkTeisu@chkTeisuOK@ten_cd == dbTenpo@ten_cd,\n\tnegate:false,\n\tbroadcast: 'auto')~> chkExistsTencd\ncsvdata2 window(over(create_user),\n\tasc(ten_cd, true),\n\tasc(item_cd, true),\n\tline_no = rowNumber()) ~> csvdata3\nchkExistsTencd sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\tteisuu as decimal(2,0),\n\t\tcreate_date as timestamp,\n\t\tcreate_user as string,\n\t\tupdate_date as timestamp,\n\t\tupdate_user as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tten_cd,\n\t\titem_cd,\n\t\tteisuu = tei_su,\n\t\tcreate_date,\n\t\tcreate_user,\n\t\tupdate_date = create_date,\n\t\tupdate_user = create_user\n\t)) ~> sink1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/CSV_WEL_TEISU_M')]",
+				"[concat(variables('factoryId'), '/datasets/DB_TENPO_EXEC_SERVER_M')]",
+				"[concat(variables('factoryId'), '/datasets/DB_WEL_TEISU_M')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BWEL2250')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
-						"type": "Copy",
+						"name": "DF_BWEL2250",
+						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "7.00:00:00",
+							"timeout": "1.00:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -629,82 +411,23 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureFileStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
+							"dataflow": {
+								"referenceName": "DF_BWEL2250",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"csvdata": {},
+									"dbTenpo": {},
+									"sink1": {}
 								}
 							},
-							"sink": {
-								"type": "AzurePostgreSQLSink",
-								"writeBatchSize": 1000000,
-								"writeBatchTimeout": "00:30:00",
-								"writeMethod": "BulkInsert"
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
 							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"ordinal": 1
-										},
-										"sink": {
-											"name": "ten_cd",
-											"physicalType": "character varying",
-											"scale": 0,
-											"precision": 0
-										}
-									},
-									{
-										"source": {
-											"ordinal": 2
-										},
-										"sink": {
-											"name": "item_cd",
-											"physicalType": "character varying",
-											"scale": 0,
-											"precision": 0
-										}
-									},
-									{
-										"source": {
-											"ordinal": 3
-										},
-										"sink": {
-											"name": "zaikosu",
-											"physicalType": "numeric",
-											"scale": 1,
-											"precision": 8
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DelimitedText1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AzurePostgreSqlTable1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
+							"traceLevel": "Fine"
+						}
 					}
 				],
 				"policy": {
@@ -714,8 +437,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
-				"[concat(variables('factoryId'), '/datasets/AzurePostgreSqlTable1')]"
+				"[concat(variables('factoryId'), '/dataflows/DF_BWEL2250')]"
 			]
 		}
 	]
