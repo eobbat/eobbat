@@ -387,6 +387,44 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_BWEL2250')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/GO_BWEL2250')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "BWEL2250",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2021-12-09T03:39:00",
+						"timeZone": "Tokyo Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								0
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/BWEL2250')]"
+			]
 		}
 	]
 }
