@@ -1,0 +1,77 @@
+{
+	"name": "DB_TENPO_EXEC_SERVER_M",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LNKDB_TENPO_EXEC_SERVER_M",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [
+			{
+				"name": "kg1_cd",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "ten_cd",
+				"type": "character varying",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "server_id_bat",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "server_id_web",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "exec_mode",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "exec_date",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "create_date",
+				"type": "timestamp without time zone",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "create_user",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "update_date",
+				"type": "timestamp without time zone",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "update_user",
+				"type": "character",
+				"precision": 0,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "public",
+			"table": "tenpo_exec_server_m"
+		}
+	}
+}
