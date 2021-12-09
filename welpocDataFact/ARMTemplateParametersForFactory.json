@@ -13,6 +13,9 @@
 		},
 		"LNKDB_WEL_TEISU_M_connectionString": {
 			"value": ""
+		},
+		"GO_BWEL2251_properties_typeProperties_scope": {
+			"value": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.Storage/storageAccounts/welpocst"
 		}
 	}
 }

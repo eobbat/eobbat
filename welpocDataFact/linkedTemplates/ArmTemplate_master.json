@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "'LNKDB_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
 		},
+		"GO_BWEL2251_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.Storage/storageAccounts/welpocst"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "リンクされた ARM テンプレートを含むストレージ アカウントの URI"
@@ -54,6 +58,9 @@
 					},
 					"LNKDB_WEL_TEISU_M_connectionString": {
 						"value": "[parameters('LNKDB_WEL_TEISU_M_connectionString')]"
+					},
+					"GO_BWEL2251_properties_typeProperties_scope": {
+						"value": "[parameters('GO_BWEL2251_properties_typeProperties_scope')]"
 					}
 				}
 			},

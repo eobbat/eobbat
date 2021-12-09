@@ -18,6 +18,10 @@
 		"LNKDB_WEL_TEISU_M_connectionString": {
 			"type": "secureString",
 			"metadata": "'LNKDB_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"GO_BWEL2251_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.Storage/storageAccounts/welpocst"
 		}
 	},
 	"variables": {
@@ -389,7 +393,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/GO_BWEL2250')]",
+			"name": "[concat(parameters('factoryName'), '/GO_BWEL2251')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -404,22 +408,15 @@
 						"parameters": {}
 					}
 				],
-				"type": "ScheduleTrigger",
+				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2021-12-09T03:39:00",
-						"timeZone": "Tokyo Standard Time",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								0
-							]
-						}
-					}
+					"blobPathBeginsWith": "/bwel2250/blobs/a",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('GO_BWEL2251_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated",
+						"Microsoft.Storage.BlobDeleted"
+					]
 				}
 			},
 			"dependsOn": [
