@@ -1,0 +1,32 @@
+{
+	"name": "CSV_EOBBAT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LNKCSV_EOBBAT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "wel_BWEL2250.csv",
+				"container": "eobblob"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	}
+}
