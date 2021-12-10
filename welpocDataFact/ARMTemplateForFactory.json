@@ -7,6 +7,10 @@
 			"metadata": "データ ファクトリ名",
 			"defaultValue": "welpocDataFact"
 		},
+		"LNKCSV_EOBBAT_connectionString": {
+			"type": "secureString",
+			"metadata": "'LNKCSV_EOBBAT' の 'connectionString' のセキュリティで保護された文字列"
+		},
 		"LNKCSV_WEL_TEISU_M_connectionString": {
 			"type": "secureString",
 			"metadata": "'LNKCSV_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
@@ -74,6 +78,91 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_BWEL2250')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BWEL2250_2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "DF_BWEL2250_2",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DF_BWEL2250_2",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"csvdata": {},
+									"dbTenpo": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/DF_BWEL2250_2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CSV_EOBBAT')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LNKCSV_EOBBAT",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "wel_BWEL2250.csv",
+						"container": "eobblob"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LNKCSV_EOBBAT')]"
 			]
 		},
 		{
@@ -260,6 +349,19 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LNKCSV_EOBBAT')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LNKCSV_EOBBAT_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LNKCSV_WEL_TEISU_M')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -299,6 +401,37 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/GO_BWEL2251')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "BWEL2250",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/bwel2250/blobs/a",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('GO_BWEL2251_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated",
+						"Microsoft.Storage.BlobDeleted"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/BWEL2250')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -323,6 +456,16 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime2')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DF_BWEL2250')]",
@@ -386,44 +529,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/default')]",
-			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
-			"apiVersion": "2018-06-01",
-			"properties": {},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/GO_BWEL2251')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "BWEL2250",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/bwel2250/blobs/a",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('GO_BWEL2251_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated",
-						"Microsoft.Storage.BlobDeleted"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/BWEL2250')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DF_BWEL2250_2')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -475,7 +580,7 @@
 							"name": "csvdata3"
 						}
 					],
-					"script": "source(output(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\ttei_su as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> csvdata\nsource(output(\n\t\tkg1_cd as string,\n\t\tten_cd as string,\n\t\tserver_id_bat as string,\n\t\tserver_id_web as string,\n\t\texec_mode as string,\n\t\texec_date as string,\n\t\tcreate_date as timestamp,\n\t\tcreate_user as string,\n\t\tupdate_date as timestamp,\n\t\tupdate_user as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> dbTenpo\ncsvdata derive(create_user = upper('BWEL2250'),\n\t\tcreate_date = currentTimestamp()) ~> csvdata2\ncsvdata3 split(between(length(coalesce(ten_cd,'')),1,6),\n\tdisjoint: false) ~> chkTencd@(chkTencdOK, chkTencdNG)\nchkTencd@chkTencdOK split(between(length(coalesce(item_cd,'')),1,13),\n\tdisjoint: false) ~> chkItemcd@(chkItemcdOK, chkItemcdNG)\nchkItemcd@chkItemcdOK split(isDecimal(tei_su) && between(toDecimal(tei_su), -99, 99) && equals(ceil(toDecimal(tei_su) * 1), floor(toDecimal(tei_su) * 1)),\n\tdisjoint: false) ~> chkTeisu@(chkTeisuOK, chkTeisuNG)\nchkTeisu@chkTeisuOK, dbTenpo exists(chkTeisu@chkTeisuOK@ten_cd == dbTenpo@ten_cd,\n\tnegate:false,\n\tbroadcast: 'auto')~> chkExistsTencd\ncsvdata2 window(over(create_user),\n\tasc(ten_cd, true),\n\tasc(item_cd, true),\n\tline_no = rowNumber()) ~> csvdata3\nchkExistsTencd sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\tteisuu as decimal(2,0),\n\t\tcreate_date as timestamp,\n\t\tcreate_user as string,\n\t\tupdate_date as timestamp,\n\t\tupdate_user as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tten_cd,\n\t\titem_cd,\n\t\tteisuu = tei_su,\n\t\tcreate_date,\n\t\tcreate_user,\n\t\tupdate_date = create_date,\n\t\tupdate_user = create_user\n\t),\n\tpartitionBy('hash', 1)) ~> sink1"
+					"script": "source(output(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\ttei_su as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> csvdata\nsource(output(\n\t\tkg1_cd as string,\n\t\tten_cd as string,\n\t\tserver_id_bat as string,\n\t\tserver_id_web as string,\n\t\texec_mode as string,\n\t\texec_date as string,\n\t\tcreate_date as timestamp,\n\t\tcreate_user as string,\n\t\tupdate_date as timestamp,\n\t\tupdate_user as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> dbTenpo\ncsvdata derive(create_user = upper('BWEL2250'),\n\t\tcreate_date = currentTimestamp()) ~> csvdata2\ncsvdata3 split(between(length(coalesce(ten_cd,'')),1,6),\n\tdisjoint: false) ~> chkTencd@(chkTencdOK, chkTencdNG)\nchkTencd@chkTencdOK split(between(length(coalesce(item_cd,'')),1,13),\n\tdisjoint: false) ~> chkItemcd@(chkItemcdOK, chkItemcdNG)\nchkItemcd@chkItemcdOK split(isDecimal(tei_su) && between(toDecimal(tei_su), -99, 99) && equals(ceil(toDecimal(tei_su) * 1), floor(toDecimal(tei_su) * 1)),\n\tdisjoint: false) ~> chkTeisu@(chkTeisuOK, chkTeisuNG)\nchkTeisu@chkTeisuOK, dbTenpo exists(chkTeisu@chkTeisuOK@ten_cd == dbTenpo@ten_cd,\n\tnegate:false,\n\tbroadcast: 'auto')~> chkExistsTencd\ncsvdata2 window(over(create_user),\n\tasc(ten_cd, true),\n\tasc(item_cd, true),\n\tline_no = rowNumber()) ~> csvdata3\nchkExistsTencd sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tten_cd as string,\n\t\titem_cd as string,\n\t\tteisuu as decimal(2,0),\n\t\tcreate_date as timestamp,\n\t\tcreate_user as string,\n\t\tupdate_date as timestamp,\n\t\tupdate_user as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tten_cd,\n\t\titem_cd,\n\t\tteisuu = tei_su,\n\t\tcreate_date,\n\t\tcreate_user,\n\t\tupdate_date = create_date,\n\t\tupdate_user = create_user\n\t)) ~> sink1"
 				}
 			},
 			"dependsOn": [
@@ -485,52 +590,11 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/BWEL2250_2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
 			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "DF_BWEL2250_2",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "1.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_BWEL2250_2",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"csvdata": {},
-									"dbTenpo": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/DF_BWEL2250_2')]"
-			]
+			"properties": {},
+			"dependsOn": []
 		}
 	]
 }
