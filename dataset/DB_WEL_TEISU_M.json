@@ -2,7 +2,7 @@
 	"name": "DB_WEL_TEISU_M",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LNKDB_WEL_TEISU_M",
+			"referenceName": "LNK_DB2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
