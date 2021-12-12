@@ -70,7 +70,7 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "public",
+			"schema": "welcia",
 			"table": "tenpo_exec_server_m"
 		}
 	}
