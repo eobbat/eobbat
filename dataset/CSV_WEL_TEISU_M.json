@@ -2,7 +2,7 @@
 	"name": "CSV_WEL_TEISU_M",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LNKCSV_WEL_TEISU_M",
+			"referenceName": "LNK_BLOB2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
