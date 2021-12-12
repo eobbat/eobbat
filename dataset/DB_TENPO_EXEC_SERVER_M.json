@@ -2,7 +2,7 @@
 	"name": "DB_TENPO_EXEC_SERVER_M",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LNKDB_TENPO_EXEC_SERVER_M",
+			"referenceName": "LNK_DB2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
