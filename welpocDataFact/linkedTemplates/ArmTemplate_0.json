@@ -15,13 +15,13 @@
 			"type": "secureString",
 			"metadata": "'LNKCSV_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
 		},
-		"LNK_BLOB2_connectionString": {
-			"type": "secureString",
-			"metadata": "'LNK_BLOB2' の 'connectionString' のセキュリティで保護された文字列"
-		},
 		"LNK_DB2_connectionString": {
 			"type": "secureString",
 			"metadata": "'LNK_DB2' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"LNK_BLOB2_connectionString": {
+			"type": "secureString",
+			"metadata": "'LNK_BLOB2' の 'connectionString' のセキュリティで保護された文字列"
 		}
 	},
 	"variables": {
@@ -98,6 +98,25 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LNK_DB2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzurePostgreSql",
+				"typeProperties": {
+					"connectionString": "[parameters('LNK_DB2_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime1",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LNK_BLOB2')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -106,45 +125,14 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('LNK_BLOB2_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime1",
+					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CSV_EOBBAT')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LNKCSV_EOBBAT",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "wel_BWEL2250.csv",
-						"container": "eobblob"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
-			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LNKCSV_EOBBAT')]"
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
 			]
 		},
 		{
@@ -182,25 +170,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LNK_BLOB2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LNK_DB2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzurePostgreSql",
-				"typeProperties": {
-					"connectionString": "[parameters('LNK_DB2_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime1",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
 			]
 		},
 		{

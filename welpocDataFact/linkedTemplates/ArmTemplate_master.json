@@ -56,11 +56,11 @@
 					"LNKCSV_WEL_TEISU_M_connectionString": {
 						"value": "[parameters('LNKCSV_WEL_TEISU_M_connectionString')]"
 					},
-					"LNK_BLOB2_connectionString": {
-						"value": "[parameters('LNK_BLOB2_connectionString')]"
-					},
 					"LNK_DB2_connectionString": {
 						"value": "[parameters('LNK_DB2_connectionString')]"
+					},
+					"LNK_BLOB2_connectionString": {
+						"value": "[parameters('LNK_BLOB2_connectionString')]"
 					}
 				}
 			},
