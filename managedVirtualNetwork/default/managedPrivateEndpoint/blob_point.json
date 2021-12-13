@@ -1,0 +1,7 @@
+{
+	"name": "blob_point",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.Storage/storageAccounts/welpocst",
+		"groupId": "blob"
+	}
+}
