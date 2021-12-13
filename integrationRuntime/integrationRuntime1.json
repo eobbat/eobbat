@@ -6,7 +6,7 @@
 			"computeProperties": {
 				"location": "Japan East",
 				"dataFlowProperties": {
-					"computeType": "General",
+					"computeType": "MemoryOptimized",
 					"coreCount": 8,
 					"timeToLive": 10,
 					"cleanup": false
