@@ -7,14 +7,6 @@
 			"metadata": "データ ファクトリ名",
 			"defaultValue": "welpocDataFact"
 		},
-		"LNKCSV_EOBBAT_connectionString": {
-			"type": "secureString",
-			"metadata": "'LNKCSV_EOBBAT' の 'connectionString' のセキュリティで保護された文字列"
-		},
-		"LNKCSV_WEL_TEISU_M_connectionString": {
-			"type": "secureString",
-			"metadata": "'LNKCSV_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
-		},
 		"LNK_DB2_connectionString": {
 			"type": "secureString",
 			"metadata": "'LNK_DB2' の 'connectionString' のセキュリティで保護された文字列"
@@ -49,12 +41,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"LNKCSV_EOBBAT_connectionString": {
-						"value": "[parameters('LNKCSV_EOBBAT_connectionString')]"
-					},
-					"LNKCSV_WEL_TEISU_M_connectionString": {
-						"value": "[parameters('LNKCSV_WEL_TEISU_M_connectionString')]"
 					},
 					"LNK_DB2_connectionString": {
 						"value": "[parameters('LNK_DB2_connectionString')]"

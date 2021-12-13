@@ -5,12 +5,6 @@
 		"factoryName": {
 			"value": "welpocDataFact"
 		},
-		"LNKCSV_EOBBAT_connectionString": {
-			"value": ""
-		},
-		"LNKCSV_WEL_TEISU_M_connectionString": {
-			"value": ""
-		},
 		"LNK_DB2_connectionString": {
 			"value": ""
 		},
