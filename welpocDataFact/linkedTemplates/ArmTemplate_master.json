@@ -15,14 +15,6 @@
 			"type": "secureString",
 			"metadata": "'LNKCSV_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
 		},
-		"LNKDB_TENPO_EXEC_SERVER_M_connectionString": {
-			"type": "secureString",
-			"metadata": "'LNKDB_TENPO_EXEC_SERVER_M' の 'connectionString' のセキュリティで保護された文字列"
-		},
-		"LNKDB_WEL_TEISU_M_connectionString": {
-			"type": "secureString",
-			"metadata": "'LNKDB_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
-		},
 		"LNK_DB2_connectionString": {
 			"type": "secureString",
 			"metadata": "'LNK_DB2' の 'connectionString' のセキュリティで保護された文字列"
@@ -66,12 +58,6 @@
 					},
 					"LNK_BLOB2_connectionString": {
 						"value": "[parameters('LNK_BLOB2_connectionString')]"
-					},
-					"LNKDB_TENPO_EXEC_SERVER_M_connectionString": {
-						"value": "[parameters('LNKDB_TENPO_EXEC_SERVER_M_connectionString')]"
-					},
-					"LNKDB_WEL_TEISU_M_connectionString": {
-						"value": "[parameters('LNKDB_WEL_TEISU_M_connectionString')]"
 					},
 					"LNK_DB2_connectionString": {
 						"value": "[parameters('LNK_DB2_connectionString')]"

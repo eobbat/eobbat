@@ -11,12 +11,6 @@
 		"LNKCSV_WEL_TEISU_M_connectionString": {
 			"value": ""
 		},
-		"LNKDB_TENPO_EXEC_SERVER_M_connectionString": {
-			"value": ""
-		},
-		"LNKDB_WEL_TEISU_M_connectionString": {
-			"value": ""
-		},
 		"LNK_DB2_connectionString": {
 			"value": ""
 		},

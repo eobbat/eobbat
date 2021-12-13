@@ -15,14 +15,6 @@
 			"type": "secureString",
 			"metadata": "'LNKCSV_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
 		},
-		"LNKDB_TENPO_EXEC_SERVER_M_connectionString": {
-			"type": "secureString",
-			"metadata": "'LNKDB_TENPO_EXEC_SERVER_M' の 'connectionString' のセキュリティで保護された文字列"
-		},
-		"LNKDB_WEL_TEISU_M_connectionString": {
-			"type": "secureString",
-			"metadata": "'LNKDB_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
-		},
 		"LNK_DB2_connectionString": {
 			"type": "secureString",
 			"metadata": "'LNK_DB2' の 'connectionString' のセキュリティで保護された文字列"
@@ -44,6 +36,37 @@
 				"activities": [
 					{
 						"name": "DF_BWEL2250_2",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DF_BWEL2250_2",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"csvdata": {},
+									"dbTenpo": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "DF_BWEL2250_21",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -329,44 +352,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LNKDB_TENPO_EXEC_SERVER_M')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzurePostgreSql",
-				"typeProperties": {
-					"connectionString": "[parameters('LNKDB_TENPO_EXEC_SERVER_M_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime2",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LNKDB_WEL_TEISU_M')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzurePostgreSql",
-				"typeProperties": {
-					"connectionString": "[parameters('LNKDB_WEL_TEISU_M_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime2",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime2')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
