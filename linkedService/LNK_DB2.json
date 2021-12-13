@@ -6,10 +6,10 @@
 		"type": "AzurePostgreSql",
 		"typeProperties": {
 			"connectionString": "host=welpocdb2.postgres.database.azure.com;port=5432;database=postgres;uid=welcia;encryptionmethod=0",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDFDQzEzRkZFLTU0QUMtNEQxNS1CRDczLTAxQUY0MkIzQ0NENF9kM2M2ZjJhMy1lZDI1LTRhNWMtOGU2Zi1mMGU3YWNmMTlmNGMiDQp9"
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlZWYxODE4NS04NzExLTRmODItYjY5YS1hZGNmNjJlYzNkMWIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
-			"referenceName": "integrationRuntime1",
+			"referenceName": "integrationRuntime2",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
