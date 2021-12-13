@@ -4,7 +4,7 @@
 		"type": "Managed",
 		"typeProperties": {
 			"computeProperties": {
-				"location": "Japan East",
+				"location": "AutoResolve",
 				"dataFlowProperties": {
 					"computeType": "MemoryOptimized",
 					"coreCount": 8,
