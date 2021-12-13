@@ -23,9 +23,13 @@
 			"type": "secureString",
 			"metadata": "'LNKDB_WEL_TEISU_M' の 'connectionString' のセキュリティで保護された文字列"
 		},
-		"GO_BWEL2251_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.Storage/storageAccounts/welpocst"
+		"LNK_DB2_connectionString": {
+			"type": "secureString",
+			"metadata": "'LNK_DB2' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"LNK_BLOB2_connectionString": {
+			"type": "secureString",
+			"metadata": "'LNK_BLOB2' の 'connectionString' のセキュリティで保護された文字列"
 		},
 		"containerUri": {
 			"type": "string",
@@ -60,14 +64,17 @@
 					"LNKCSV_WEL_TEISU_M_connectionString": {
 						"value": "[parameters('LNKCSV_WEL_TEISU_M_connectionString')]"
 					},
+					"LNK_BLOB2_connectionString": {
+						"value": "[parameters('LNK_BLOB2_connectionString')]"
+					},
 					"LNKDB_TENPO_EXEC_SERVER_M_connectionString": {
 						"value": "[parameters('LNKDB_TENPO_EXEC_SERVER_M_connectionString')]"
 					},
 					"LNKDB_WEL_TEISU_M_connectionString": {
 						"value": "[parameters('LNKDB_WEL_TEISU_M_connectionString')]"
 					},
-					"GO_BWEL2251_properties_typeProperties_scope": {
-						"value": "[parameters('GO_BWEL2251_properties_typeProperties_scope')]"
+					"LNK_DB2_connectionString": {
+						"value": "[parameters('LNK_DB2_connectionString')]"
 					}
 				}
 			},
