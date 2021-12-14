@@ -7,13 +7,29 @@
 			"metadata": "データ ファクトリ名",
 			"defaultValue": "welpocDataFact"
 		},
+		"LNK_BLOB2_connectionString": {
+			"type": "secureString",
+			"metadata": "'LNK_BLOB2' の 'connectionString' のセキュリティで保護された文字列"
+		},
 		"LNK_DB2_connectionString": {
 			"type": "secureString",
 			"metadata": "'LNK_DB2' の 'connectionString' のセキュリティで保護された文字列"
 		},
-		"LNK_BLOB2_connectionString": {
-			"type": "secureString",
-			"metadata": "'LNK_BLOB2' の 'connectionString' のセキュリティで保護された文字列"
+		"blob_point_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.Storage/storageAccounts/welpocst"
+		},
+		"blob_point_properties_groupId": {
+			"type": "string",
+			"defaultValue": "blob"
+		},
+		"postgresql_point_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.DBforPostgreSQL/servers/welpocdb4"
+		},
+		"postgresql_point_properties_groupId": {
+			"type": "string",
+			"defaultValue": "postgresqlServer"
 		},
 		"containerUri": {
 			"type": "string",
@@ -42,11 +58,23 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"LNK_BLOB2_connectionString": {
+						"value": "[parameters('LNK_BLOB2_connectionString')]"
+					},
 					"LNK_DB2_connectionString": {
 						"value": "[parameters('LNK_DB2_connectionString')]"
 					},
-					"LNK_BLOB2_connectionString": {
-						"value": "[parameters('LNK_BLOB2_connectionString')]"
+					"blob_point_properties_privateLinkResourceId": {
+						"value": "[parameters('blob_point_properties_privateLinkResourceId')]"
+					},
+					"blob_point_properties_groupId": {
+						"value": "[parameters('blob_point_properties_groupId')]"
+					},
+					"postgresql_point_properties_privateLinkResourceId": {
+						"value": "[parameters('postgresql_point_properties_privateLinkResourceId')]"
+					},
+					"postgresql_point_properties_groupId": {
+						"value": "[parameters('postgresql_point_properties_groupId')]"
 					}
 				}
 			},

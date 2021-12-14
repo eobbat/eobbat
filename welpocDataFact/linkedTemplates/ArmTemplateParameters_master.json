@@ -5,11 +5,23 @@
 		"factoryName": {
 			"value": "welpocDataFact"
 		},
+		"LNK_BLOB2_connectionString": {
+			"value": ""
+		},
 		"LNK_DB2_connectionString": {
 			"value": ""
 		},
-		"LNK_BLOB2_connectionString": {
-			"value": ""
+		"blob_point_properties_privateLinkResourceId": {
+			"value": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.Storage/storageAccounts/welpocst"
+		},
+		"blob_point_properties_groupId": {
+			"value": "blob"
+		},
+		"postgresql_point_properties_privateLinkResourceId": {
+			"value": "/subscriptions/29c9909d-38ec-4542-9320-c3871b022d56/resourceGroups/welpocgroup/providers/Microsoft.DBforPostgreSQL/servers/welpocdb4"
+		},
+		"postgresql_point_properties_groupId": {
+			"value": "postgresqlServer"
 		},
 		"containerUri": {
 			"value": ""
