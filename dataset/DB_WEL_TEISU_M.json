@@ -52,7 +52,7 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "welcia",
+			"schema": "public",
 			"table": "wel_teisu_m"
 		}
 	}
